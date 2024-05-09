@@ -1,4 +1,4 @@
-
+// App.js
 import React, { useState, useEffect } from 'react';
 import BotCollection from './BotCollection';
 import YourBotArmy from './YourBotArmy';
@@ -45,6 +45,15 @@ function App() {
       .catch((error) => console.error(error));
   };
 
+  const handleDeleteBot = (bot) => {
+    fetch(`http://localhost:8002/bots/${bot.id}`, { method: 'DELETE' })
+      .then(() => {
+        const newBots = bots.filter((b) => b.id !== bot.id);
+        setBots(newBots);
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
     <div className="App">
       <select onChange={(e) => handleSort(e.target.value)}>
@@ -52,8 +61,10 @@ function App() {
         <option value="damage">Sort by Damage</option>
         <option value="armor">Sort by Armor</option>
       </select>
-      <BotCollection bots={sortedBots} onAddBot={handleAddBot} />
+      <BotCollection bots={sortedBots} onAddBot={handleAddBot} onDeleteBot={handleDeleteBot} />
       <YourBotArmy bots={botArmy} onReleaseBot={handleReleaseBot} onDischargeBot={handleDischargeBot} />
+      <YourBotArmy bots={botArmy} onReleaseBot={handleReleaseBot} onDischargeBot={handleDischargeBot} onDeleteBot={handleDeleteBot} />
+
     </div>
   );
 }

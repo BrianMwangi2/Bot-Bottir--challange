@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 
-function YourBotArmy({ bots, onReleaseBot, onDischargeBot }) {
+function YourBotArmy({ bots, onReleaseBot, onDischargeBot, onDeleteBot }) {
   return (
     <div>
       <h2>Your Bot Army</h2>
@@ -18,6 +18,7 @@ function YourBotArmy({ bots, onReleaseBot, onDischargeBot }) {
             <p>{bot.updated_at}</p>
             <button onClick={() => onReleaseBot(bot)}>Release from Army</button>
             <button onClick={() => onDischargeBot(bot)}>Discharge from Service</button>
+            <button onClick={() => onDeleteBot(bot)}>Delete</button>
           </li>
         ))}
       </ul>
