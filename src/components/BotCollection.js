@@ -1,25 +1,23 @@
-import React from "react";
-import './App.css';
 
-function BotCollection({ onAddBot, bots }) {
+import React from "react";
+import BotCard from "./BotCard";
+
+
+
+function BotCollection({bots, onSelectBot, onRemoveBot }) { // Step 1
+  // Your code here
+  // Step 2 and Step 3 will be handled here
   return (
-    <div>
-      <h1>My Bot Collection</h1>
-      <ul>
+    <div className="ui four column grid">
+      <div className="row">
         {bots.map((bot) => (
-          <li key={bot.id}>
-            <h2>{bot.name}</h2>
-            <img src={bot.avatar_url} alt={bot.name} />
-            <p>{bot.health}</p>
-            <p>{bot.damage}</p>
-            <p>{bot.armor}</p>
-            <p>{bot.bot_class}</p>
-            <p>{bot.created_at}</p>
-            <p>{bot.updated_at}</p>
-            <button onClick={() => onAddBot(bot)}>Add to Army</button>
-          </li>
+          <BotCard key={bot.id} bot={bot} 
+          onSelect={onSelectBot} // Pass onSelect prop to handle bot selection
+          onRemove={onRemoveBot} // Pass onRemove prop to handle bot removal
+          />
         ))}
-      </ul>
+        Collection of all bots
+      </div>
     </div>
   );
 }

@@ -1,27 +1,25 @@
 import React from "react";
-import './App.css';
+import BotCard from "./BotCard";
 
-function YourBotArmy({ bots, onReleaseBot, onDischargeBot, onDeleteBot }) {
+function YourBotArmy({bots, onRemoveBot, onSelectBot}) {
+  //your bot army code here...
+
+  const isBotRendered = (botId) => {
+    // Iterate through the bots array to check if the bot with the given ID is already rendered
+    return bots.some((bot) => bot.id === botId);
+  };
+  
+
   return (
-    <div>
-      <h2>Your Bot Army</h2>
-      <ul>
+    <div className="ui segment inverted olive bot-army">
+      <div className="ui five column grid">
+        <div className="row bot-army-row">
         {bots.map((bot) => (
-          <li key={bot.id}>
-            <h2>{bot.name}</h2>
-            <img src={bot.avatar_url} alt={bot.name} />
-            <p>{bot.health}</p>
-            <p>{bot.damage}</p>
-            <p>{bot.armor}</p>
-            <p>{bot.bot_class}</p>
-            <p>{bot.created_at}</p>
-            <p>{bot.updated_at}</p>
-            <button onClick={() => onReleaseBot(bot)}>Release from Army</button>
-            <button onClick={() => onDischargeBot(bot)}>Discharge from Service</button>
-            <button onClick={() => onDeleteBot(bot)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+            <BotCard key={bot.id} bot={bot} onRemove={onRemoveBot} onSelect={onSelectBot} isRendered={isBotRendered(bot.id)} />
+          ))}
+          Your Bot Army
+        </div>
+      </div>
     </div>
   );
 }
